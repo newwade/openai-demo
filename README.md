@@ -18,7 +18,7 @@
    $ npm install
    ```
 
-6. Add your [API key](https://platform.openai.com/account/api-keys) to the newly created `.env` file
+6. Add your [API key](https://platform.openai.com/account/api-keys) to your `.env` file
 
 7. Run the app
 
