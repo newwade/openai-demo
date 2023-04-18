@@ -94,7 +94,7 @@ export default function Home() {
                   className="d-flex flex-column align-items-center gap-4 example"
                   ref={exampleElement}
                 >
-                  <i class="bi bi-sun fs-5"></i>
+                  <i className="bi bi-sun fs-5"></i>
                   <div className="lead">Examples</div>
                   <div className="d-flex flex-column flex-sm-row gap-2 ">
                     <span
@@ -125,12 +125,15 @@ export default function Home() {
               <div className={`${styles.result} overflow-y-scroll mt-2`}>
                 {result.map((chat, index) => {
                   return (
-                    <div className="d-flex gap-2 mb-4 align-items-baseline">
+                    <div
+                      className="d-flex gap-2 mb-4 align-items-baseline"
+                      key={index}
+                    >
                       <div className="">
                         {chat.k9 ? (
-                          <i class="bi bi-cpu fs-5"></i>
+                          <i className="bi bi-cpu fs-5"></i>
                         ) : (
-                          <i class="bi bi-person-circle fs-5"></i>
+                          <i className="bi bi-person-circle fs-5"></i>
                         )}
                       </div>
                       <div
@@ -168,7 +171,7 @@ export default function Home() {
                 } text-light border`}
                 disabled={loading}
               >
-                <i class="bi bi-send fs-4"></i>
+                <i className="bi bi-send fs-4"></i>
               </button>
             </form>
           </div>
