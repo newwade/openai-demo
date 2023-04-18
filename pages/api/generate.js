@@ -6,34 +6,35 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
-        message: "OpenAI API key not configured, please follow instructions in README.md",
-      }
+        message:
+          "OpenAI API key not configured, please follow instructions in README.md",
+      },
     });
     return;
   }
 
-  const animal = req.body.animal || '';
-  if (animal.trim().length === 0) {
+  const { textInput } = req.body;
+  if (textInput.trim().length === 0) {
     res.status(400).json({
       error: {
-        message: "Please enter a valid animal",
-      }
+        message: "Please enter a valid request",
+      },
     });
     return;
   }
 
   try {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: generatePrompt(animal),
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: generateMessage(textInput),
       temperature: 0.6,
     });
-    res.status(200).json({ result: completion.data.choices[0].text });
-  } catch(error) {
-    // Consider adjusting the error handling logic for your use case
+    res.status(200).json({ result: completion.data.choices[0].message });
+  } catch (error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
       res.status(error.response.status).json(error.response.data);
@@ -41,22 +42,32 @@ export default async function (req, res) {
       console.error(`Error with OpenAI API request: ${error.message}`);
       res.status(500).json({
         error: {
-          message: 'An error occurred during your request.',
-        }
+          message: "An error occurred during your request.",
+        },
       });
     }
   }
 }
 
-function generatePrompt(animal) {
-  const capitalizedAnimal =
-    animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-  return `Suggest three names for an animal that is a superhero.
+const generateMessage = (textInput) => {
+  return [
+    {
+      role: "system",
+      content:
+        "You are a virtual assistant an implementation of a language model trained by OpenAI",
+    },
+    { role: "user", content: textInput },
+  ];
+};
 
-Animal: Cat
-Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Animal: Dog
-Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Animal: ${capitalizedAnimal}
-Names:`;
-}
+const sendAndSleep = function (response, counter) {
+  if (counter > 10) {
+    response.end();
+  } else {
+    response.write(`{ data: ${counter} }`);
+    counter++;
+    setTimeout(function () {
+      sendAndSleep(response, counter);
+    }, 1000);
+  }
+};
