@@ -1,4 +1,4 @@
-# OpenAI API Quickstart - Node.js example app
+# OpenAI API Quickstart - Node.js app
 
 ## Setup
 
@@ -18,9 +18,13 @@
    $ npm install
    ```
 
-6. Add your [API key](https://platform.openai.com/account/api-keys) to your `.env` file
+5. Add your [API key](https://platform.openai.com/account/api-keys) to your `.env`
 
-7. Run the app
+   ```
+      OPENAI_API_KEY = YOUR_API_KEY
+   ```
+
+6. Run the app
 
    ```bash
    $ npm run dev

@@ -6,28 +6,38 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  if (!configuration.apiKey) {
-    res.status(500).json({
-      error: {
-        message:
-          "OpenAI API key not configured, please follow instructions in README.md",
-      },
-    });
-    return;
-  }
-
-  const { textInput } = req.body;
-  if (textInput.trim().length === 0) {
-    res.status(400).json({
-      error: {
-        message: "Please enter a valid request",
-      },
-    });
-    return;
-  }
-
   try {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    if (!configuration.apiKey) {
+      const error = {
+        response: {
+          status: 500,
+          data: {
+            error: {
+              type: "internal_server_error",
+              message: "OpenAI API key not configured",
+            },
+          },
+        },
+      };
+      throw error;
+    }
+    const { textInput } = req.body;
+    if (textInput.trim().length === 0) {
+      const error = {
+        response: {
+          status: 400,
+          data: {
+            error: {
+              type: "invalid_request_error",
+              message: "Input value is empty",
+            },
+          },
+        },
+      };
+      throw error;
+    }
+
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: generateMessage(textInput),
@@ -39,10 +49,10 @@ export default async function (req, res) {
       console.error(error.response.status, error.response.data);
       res.status(error.response.status).json(error.response.data);
     } else {
-      console.error(`Error with OpenAI API request: ${error.message}`);
+      console.error(error.message);
       res.status(500).json({
         error: {
-          message: "An error occurred during your request.",
+          message: error.message,
         },
       });
     }
@@ -54,7 +64,7 @@ const generateMessage = (textInput) => {
     {
       role: "system",
       content:
-        "You are a virtual assistant an implementation of a language model trained by OpenAI",
+        "You are a virtual assistant named K9, an implementation of a language model trained by OpenAI",
     },
     { role: "user", content: textInput },
   ];
