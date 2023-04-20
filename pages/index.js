@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import ReactLoading from "react-loading";
 import styles from "./index.module.css";
-import { animateScroll, Events } from "react-scroll";
+import { animateScroll } from "react-scroll";
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
