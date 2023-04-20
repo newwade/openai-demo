@@ -9,7 +9,7 @@
 3. Navigate into the project directory
 
    ```bash
-   $ cd openai-quickstart-node
+   $ cd openai-demo
    ```
 
 4. Install the requirements
