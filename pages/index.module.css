@@ -20,17 +20,12 @@
   height: 99vh;
   display: flex;
   flex-direction: column;
-  position: relative;
+  justify-content: space-between;
 }
 
 .chat__input{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
   display: flex;
-  justify-content: center;
-
+  gap: 1px;
 }
 
 .chat__input > input{
@@ -44,6 +39,11 @@
 
 .chat__input__btn:disabled {
   background-color: gray;
+}
+
+.main{
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .main,
@@ -72,6 +72,17 @@
 
 .result {
   white-space: pre-wrap;
-  height: 83vh;
-} 
+}
 
+
+@media all and (max-width: 576px){
+
+.chat__input > input{
+  width: 80%;
+}
+
+.chat__input > button{
+  width: 20%;
+}
+
+}

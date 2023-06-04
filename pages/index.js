@@ -85,6 +85,7 @@ export default function Home() {
     <div>
       <Head>
         <title>New chat</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/dog.png" />
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -104,106 +105,104 @@ export default function Home() {
         ></script>
       </Head>
       <main className={`${styles.main} bg-body-secondary`}>
-        <div className="container-sm">
-          <div className={`container-sm bg-white ${styles.chat}`}>
-            <div className="d-flex flex-column justify-content-around align-items-center mt-2 header">
-              <div className="d-flex mb-4 " onClick={scrollToTop}>
-                <div className="fs-2">K9</div>
-                <img src="/dog.png" className={styles.icon} />
-                <div className="fs-2">CHAT</div>
-              </div>
-              <div
-                className="d-flex flex-column align-items-center gap-4 example"
-                ref={exampleElement}
-              >
-                <i className="bi bi-sun fs-5"></i>
-                <div className="lead">Examples</div>
-                <div className="d-flex flex-column flex-sm-row gap-2 ">
-                  <span
-                    className="bg-body-secondary p-2 rounded btn"
-                    onClick={(e) => handleClick(e)}
-                  >
-                    <small>"Explain quantum computing in simple terms"</small>
-                  </span>
-                  <span
-                    className="bg-body-secondary p-2 rounded btn"
-                    onClick={(e) => handleClick(e)}
-                  >
-                    <small>
-                      "Got any creative ideas for a 10 year old's birthday?"
-                    </small>
-                  </span>
-                  <span
-                    className="bg-body-secondary p-2 rounded btn"
-                    onClick={(e) => handleClick(e)}
-                  >
-                    <small>
-                      "How do I make an HTTP request in Javascript?"
-                    </small>
-                  </span>
-                </div>
-              </div>
+        <div className={` container bg-white ${styles.chat} `}>
+          <div className="d-flex flex-column justify-content-around align-items-center mt-2 header">
+            <div
+              className="d-flex mb-4 bg-success p-2 text-white rounded"
+              onClick={scrollToTop}
+            >
+              <div className="fs-2">K9</div>
+              <div className="fs-2">CHAT</div>
             </div>
             <div
-              className={`${styles.result} overflow-y-scroll mt-2`}
-              id="chat_body"
-              ref={messageElement}
+              className="d-flex flex-column align-items-center gap-4 example"
+              ref={exampleElement}
             >
-              {result.map((chat, index) => {
-                return (
-                  <div
-                    className="d-flex gap-2 mb-4 align-items-baseline"
-                    key={index}
-                  >
-                    <div className="">
-                      {chat.k9 ? (
-                        <i className="bi bi-cpu fs-5"></i>
-                      ) : (
-                        <i className="bi bi-person-circle fs-5"></i>
-                      )}
-                    </div>
-                    <div
-                      key={index}
-                      className="bg-body-secondary text-dark p-2 rounded"
-                    >
-                      <div>{chat.content}</div>
-                    </div>
+              <i className="bi bi-sun fs-5"></i>
+              <div className="lead">Examples</div>
+              <div className="d-flex flex-column flex-sm-row gap-2 ">
+                <span
+                  className="bg-body-secondary p-2 rounded btn"
+                  onClick={(e) => handleClick(e)}
+                >
+                  <small>"Explain quantum computing in simple terms"</small>
+                </span>
+                <span
+                  className="bg-body-secondary p-2 rounded btn"
+                  onClick={(e) => handleClick(e)}
+                >
+                  <small>
+                    "Got any creative ideas for a 10 year old's birthday?"
+                  </small>
+                </span>
+                <span
+                  className="bg-body-secondary p-2 rounded btn"
+                  onClick={(e) => handleClick(e)}
+                >
+                  <small>"How do I make an HTTP request in Javascript?"</small>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className={`${styles.result} overflow-y-scroll mt-2`}
+            id="chat_body"
+            ref={messageElement}
+          >
+            {result.map((chat, index) => {
+              return (
+                <div
+                  className="d-flex gap-2 mb-4 align-items-baseline"
+                  key={index}
+                >
+                  <div className="">
+                    {chat.k9 ? (
+                      <i className="bi bi-cpu fs-5"></i>
+                    ) : (
+                      <i className="bi bi-person-circle fs-5"></i>
+                    )}
                   </div>
-                );
-              })}
-              {loading && (
-                <div className="d-flex gap-2 mb-4 align-items-baseline">
-                  <i className="bi bi-cpu fs-5"></i>
-                  <div className="bg-body-secondary text-dark p-2 rounded">
-                    <ReactLoading
-                      type="bubbles"
-                      color="#000000"
-                      height="40px"
-                      width="40px"
-                    />
+                  <div
+                    key={index}
+                    className="bg-body-secondary text-dark p-2 rounded"
+                  >
+                    <div>{chat.content}</div>
                   </div>
                 </div>
-              )}
-            </div>
-            <form onSubmit={onSubmit} className={styles.chat__input}>
-              <input
-                type="text"
-                name="animal"
-                placeholder="Hi there how can I help you today?"
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-              />
-              <button
-                type="submit"
-                className={`${
-                  loading ? "bg-secondary" : "bg-success"
-                } text-light border`}
-                disabled={loading}
-              >
-                <i className="bi bi-send fs-4"></i>
-              </button>
-            </form>
+              );
+            })}
+            {loading && (
+              <div className="d-flex gap-2 mb-4 align-items-baseline">
+                <i className="bi bi-cpu fs-5"></i>
+                <div className="bg-body-secondary text-dark p-2 rounded">
+                  <ReactLoading
+                    type="bubbles"
+                    color="#000000"
+                    height="40px"
+                    width="40px"
+                  />
+                </div>
+              </div>
+            )}
           </div>
+          <form onSubmit={onSubmit} className={`${styles.chat__input}`}>
+            <input
+              type="text"
+              name="animal"
+              placeholder="Hi there how can I help you today?"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+            />
+            <button
+              type="submit"
+              className={`${
+                loading ? "bg-secondary" : "bg-success"
+              } text-light border`}
+              disabled={loading}
+            >
+              <i className="bi bi-send fs-5"></i>
+            </button>
+          </form>
         </div>
       </main>
     </div>
