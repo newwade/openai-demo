@@ -20,14 +20,13 @@
   height: 99vh;
   display: flex;
   flex-direction: column;
-  justify-content:space-between;
   position: relative;
 }
 
 .chat__input{
-  position: sticky;
+  position: absolute;
   bottom: 0;
-  right: 0;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -73,5 +72,6 @@
 
 .result {
   white-space: pre-wrap;
-}
+  height: 83vh;
+} 
 
