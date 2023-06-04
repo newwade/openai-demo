@@ -21,11 +21,17 @@
   display: flex;
   flex-direction: column;
   justify-content:space-between;
+  position: relative;
 }
 
 .chat__input{
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
+
 }
 
 .chat__input > input{
